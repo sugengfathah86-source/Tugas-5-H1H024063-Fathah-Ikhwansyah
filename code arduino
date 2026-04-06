@@ -1,0 +1,34 @@
+const int m_kend = 13, k_kend = 12, h_kend = 11;
+const int m_ped = 10, h_ped = 9;
+
+void setup() {
+  pinMode(m_kend, OUTPUT); pinMode(k_kend, OUTPUT); pinMode(h_kend, OUTPUT);
+  pinMode(m_ped, OUTPUT); pinMode(h_ped, OUTPUT);
+  
+  digitalWrite(m_kend, HIGH);
+  digitalWrite(m_ped, HIGH);
+}
+
+void loop() {
+  jalankanSistem();
+}
+
+void jalankanSistem() {
+  digitalWrite(m_kend, LOW); digitalWrite(h_kend, HIGH);
+  digitalWrite(m_ped, HIGH); digitalWrite(h_ped, LOW);
+  delay(5000);
+
+  digitalWrite(h_kend, LOW); digitalWrite(k_kend, HIGH);
+  delay(2000);
+  digitalWrite(k_kend, LOW);
+
+  digitalWrite(m_kend, HIGH);
+  digitalWrite(m_ped, LOW); digitalWrite(h_ped, HIGH);
+  delay(5000);
+
+  for(int i=0; i<3; i++) {
+    digitalWrite(h_ped, LOW); delay(300);
+    digitalWrite(h_ped, HIGH); delay(300);
+  }
+  digitalWrite(h_ped, LOW); // Selesai
+}
