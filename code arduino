@@ -1,34 +1,66 @@
-const int m_kend = 13, k_kend = 12, h_kend = 11;
-const int m_ped = 10, h_ped = 9;
+const int mobilMerah = 13;
+const int mobilKuning = 12;
+const int mobilHijau = 11;
+const int orangMerah = 10;
+const int orangHijau = 9;
+const int tombol = 2;
 
 void setup() {
-  pinMode(m_kend, OUTPUT); pinMode(k_kend, OUTPUT); pinMode(h_kend, OUTPUT);
-  pinMode(m_ped, OUTPUT); pinMode(h_ped, OUTPUT);
-  
-  digitalWrite(m_kend, HIGH);
-  digitalWrite(m_ped, HIGH);
+  pinMode(mobilMerah, OUTPUT);
+  pinMode(mobilKuning, OUTPUT);
+  pinMode(mobilHijau, OUTPUT);
+  pinMode(orangMerah, OUTPUT);
+  pinMode(orangHijau, OUTPUT);
+  pinMode(tombol, INPUT_PULLUP); 
+
+  statusAwal();
 }
 
 void loop() {
-  jalankanSistem();
+  if (digitalRead(tombol) == LOW) {
+    delay(50); 
+    if (digitalRead(tombol) == LOW) {
+      siklusMenyeberang();
+    }
+  }
 }
 
-void jalankanSistem() {
-  digitalWrite(m_kend, LOW); digitalWrite(h_kend, HIGH);
-  digitalWrite(m_ped, HIGH); digitalWrite(h_ped, LOW);
-  delay(5000);
-
-  digitalWrite(h_kend, LOW); digitalWrite(k_kend, HIGH);
+void siklusMenyeberang() {
+  digitalWrite(mobilHijau, LOW);
+  digitalWrite(mobilKuning, HIGH);
   delay(2000);
-  digitalWrite(k_kend, LOW);
-
-  digitalWrite(m_kend, HIGH);
-  digitalWrite(m_ped, LOW); digitalWrite(h_ped, HIGH);
+  digitalWrite(mobilKuning, LOW);
+  digitalWrite(mobilMerah, HIGH);
+  delay(1000);
+  digitalWrite(orangMerah, LOW);
+  digitalWrite(orangHijau, HIGH);
   delay(5000);
-
-  for(int i=0; i<3; i++) {
-    digitalWrite(h_ped, LOW); delay(300);
-    digitalWrite(h_ped, HIGH); delay(300);
+  
+  for (int i = 0; i < 3; i++) {
+    digitalWrite(orangHijau, LOW);
+    delay(400);
+    digitalWrite(orangHijau, HIGH);
+    delay(400);
   }
-  digitalWrite(h_ped, LOW); // Selesai
+  
+  digitalWrite(orangHijau, LOW);
+  digitalWrite(orangMerah, HIGH);
+  delay(1000);
+  
+  digitalWrite(mobilKuning, HIGH);
+  delay(1500);
+  
+  digitalWrite(mobilKuning, LOW);
+  digitalWrite(mobilMerah, LOW);
+  digitalWrite(mobilHijau, HIGH);
+  
+  delay(2000); 
+}
+
+void statusAwal() {
+  digitalWrite(mobilMerah, LOW);
+  digitalWrite(mobilKuning, LOW);
+  digitalWrite(mobilHijau, HIGH);
+  digitalWrite(orangMerah, HIGH);
+  digitalWrite(orangHijau, LOW);
 }
